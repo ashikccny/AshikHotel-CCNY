@@ -1,0 +1,129 @@
+﻿CREATE TABLE [dbo].[City] (
+    [City_ID]   INT          IDENTITY (1, 1) NOT NULL,
+    [City_Name] VARCHAR (50) NULL,
+    CONSTRAINT [PK_City] PRIMARY KEY CLUSTERED ([City_ID] ASC)
+);
+go
+CREATE TABLE [dbo].[Hotel] (
+    [Hotel_ID]          INT           IDENTITY (1, 1) NOT NULL,
+    [Hotel_Name]        VARCHAR (50)  NULL,
+    [City_ID]           INT           NULL,
+    [Address_Hotel]     TEXT          NULL,
+    [State]             VARCHAR (50)  NULL,
+    [Phone]             VARCHAR (20)  NULL,
+    [Hotel_Descerption] TEXT          NULL,
+    [Email]             VARCHAR (50)  NULL,
+    [Image_URL]         VARCHAR (100) NULL,
+    CONSTRAINT [PK_Hotel] PRIMARY KEY CLUSTERED ([Hotel_ID] ASC),
+    CONSTRAINT [FK_Hotel_ToTable] FOREIGN KEY ([City_ID]) REFERENCES [dbo].[City] ([City_ID]) 
+    ON DELETE CASCADE
+);
+go
+
+CREATE TABLE [dbo].[Hotel_Image] (
+    [Image_ID]  INT           IDENTITY (1, 1) NOT NULL,
+    [Hotel_ID]  INT           NULL,
+    [Image_URL] VARCHAR (100) NULL,
+    CONSTRAINT [PK_Hotel_Image] PRIMARY KEY CLUSTERED ([Image_ID] ASC) , 
+    CONSTRAINT [FK_Hotel_Image_Hotel] FOREIGN KEY ([Hotel_ID]) REFERENCES [dbo].[Hotel] ([Hotel_ID]) 
+    ON DELETE CASCADE
+);
+go
+
+CREATE TABLE [dbo].[RoomType] (
+    [RoomType_ID]   INT          IDENTITY (1, 1) NOT NULL,
+    [RoomType_Name] VARCHAR (50) NULL,
+    CONSTRAINT [PK_RoomType] PRIMARY KEY CLUSTERED ([RoomType_ID] ASC)
+);
+go
+
+CREATE TABLE [dbo].[Hotel_Room] (
+    [Hotel_Room_ID] INT   IDENTITY (1, 1) NOT NULL,
+    [Hotel_ID]      INT   NULL,
+    [No_of_room]    INT   NULL,
+    [Room_Price]    MONEY NULL,
+    [RoomType_ID]   INT   NULL,
+    CONSTRAINT [PK_Hotel_Room] PRIMARY KEY CLUSTERED ([Hotel_Room_ID] ASC),
+    CONSTRAINT [FK_Hotel_Room_ToTable_1] FOREIGN KEY ([Hotel_ID]) REFERENCES [dbo].[Hotel] ([Hotel_ID]),
+    CONSTRAINT [FK_Hotel_Room_ToTable] FOREIGN KEY ([RoomType_ID]) REFERENCES [dbo].[RoomType] ([RoomType_ID]) 
+    ON DELETE CASCADE
+);
+go
+
+CREATE TABLE [dbo].[Message] (
+    [Message_ID]     INT          IDENTITY (1, 1) NOT NULL,
+    [Hotel_ID]       INT          NULL,
+    [Sender_Name]    VARCHAR (50) NULL,
+    [Sender_Email]   VARCHAR (50) NULL,
+    [Sender_Phone]   VARCHAR (50) NULL,
+    [Send_Date]      DATE         NULL,
+    [Sender_Message] TEXT         NULL,
+    CONSTRAINT [PK_Message] PRIMARY KEY CLUSTERED ([Message_ID] ASC),
+    CONSTRAINT [FK_Message_ToTable] FOREIGN KEY ([Hotel_ID]) REFERENCES [dbo].[Hotel] ([Hotel_ID])
+    ON DELETE CASCADE
+);
+
+go
+
+CREATE TABLE [dbo].[User_Login] (
+    [User_ID]       INT          IDENTITY (1, 1) NOT NULL,
+    [User_Name]     VARCHAR (50) NULL,
+	[User_Email] VARCHAR(50) NULL UNIQUE, 
+    [User_Password] VARCHAR (50) NULL,
+    [User_Role]     VARCHAR (50) NULL,
+    
+    CONSTRAINT [PK_User_Login] PRIMARY KEY CLUSTERED ([User_ID] ASC)
+);
+go
+
+insert into User_Login values('Admin','admin@gmail.com', 'abc123', 'Admin');
+go
+
+CREATE TABLE [dbo].[Booking] (
+    [Booking_ID]      INT  IDENTITY (1, 1) NOT NULL,
+    [Check_in_Date]   DATE NULL,
+    [Check_out_Date]  DATE NULL,
+    [Number_of_Rooms] INT  NULL,
+    [Adults]          INT  NULL,
+    [Childrens]       INT  NULL,
+	[Room_Type]		varchar(50) NULL,
+	[Total_Price]	money NULL,
+    [Hotel_ID]        INT  NULL,
+    [User_ID]         INT  NULL,
+    [Booking_Status]  BIT  NULL,
+    CONSTRAINT [PK_Booking] PRIMARY KEY CLUSTERED ([Booking_ID] ASC),
+    CONSTRAINT [FK_Booking_User_Login] FOREIGN KEY ([User_ID]) REFERENCES [dbo].[User_Login] ([User_ID]),
+    CONSTRAINT [FK_Booking_Hotel] FOREIGN KEY ([Hotel_ID]) REFERENCES [dbo].[Hotel] ([Hotel_ID]) 
+    ON DELETE CASCADE
+);
+go
+
+CREATE TABLE [dbo].[Bill] (
+    [Bill_ID]         INT          IDENTITY (1, 1) NOT NULL,
+    [Hotel_ID]        INT          NULL,
+    [User_ID]         INT          NULL,
+    [Booking_ID]      INT          NULL,
+    [Hotel_Name]      VARCHAR (50) NULL,
+    [Address_Hotel]   VARCHAR (50) NULL,
+    [Phone]           VARCHAR (20) NULL,
+    [User_Name]       VARCHAR (50) NULL,
+    [Check_in_Date]   DATE         NULL,
+    [Check_out_Date]  DATE         NULL,
+    [Number_of_Rooms] INT          NULL,
+    [Room_Type]       VARCHAR (50) NULL,
+    [Total_Price]     MONEY        NULL,
+    [Total_Days]      INT          NULL,
+    [Total_Points]    INT          NULL,
+    PRIMARY KEY CLUSTERED ([Bill_ID] ASC),
+    CONSTRAINT [FK_Bill_Hotel] FOREIGN KEY ([Hotel_ID]) REFERENCES [dbo].[Hotel] ([Hotel_ID]),
+    CONSTRAINT [FK_Bill_User_Login] FOREIGN KEY ([User_ID]) REFERENCES [dbo].[User_Login] ([User_ID]),
+    CONSTRAINT [FK_Bill_Booking] FOREIGN KEY ([Booking_ID]) REFERENCES [dbo].[Booking] ([Booking_ID]) 
+	ON DELETE CASCADE
+);
+go
+
+
+
+
+
+

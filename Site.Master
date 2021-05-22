@@ -1,0 +1,124 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Ashik_Hotel_Reservation.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Ashik Hotel Reservation </title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" integrity="sha512-vyxlyD6m54QfZ9PpnWfOHY8Lk3EcN1HuSYalLg3qqnqXLKTbRC/45lvy34WkngM1BUrYuJw1W1ZHlgEpdAn5Xg==" crossorigin="anonymous" />
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        
+        <div class="container body-content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+      <img src="favicon.ico" alt="HRS" /></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+                
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+         <li class="nav-item">
+        <a class="nav-link" runat="server" href="Admin/Default.aspx">Admin</a>
+      </li>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="Default.aspx">Home <span class="sr-only">(current)</span></a>
+          
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="FAQs_Page.aspx">FAQs</a>
+      </li>
+       
+
+        <% if (Ashik_Hotel_Reservation.UserInfo.IsAuthenticated)
+            { %>
+
+      <li class="nav-item">
+        <a class="nav-link" href="List_All_Hotels.aspx">Hotel List</a>
+      </li>
+      
+      
+        <% } %>
+    </ul>
+      <% if (Ashik_Hotel_Reservation.UserInfo.IsAuthenticated)
+          { %> 
+    <ul class="nav navbar-nav navbar-right">
+           <li class="nav-item"><a class="nav-link" runat="server" href="~/User_Registration.aspx">
+               <%--<img src="<% Ashik_Hotel_Reservation.UserInfo. %>" alt="Alternate Text" class="rounded-circle mr-2" />--%>
+               Hi!,  <%: Ashik_Hotel_Reservation.UserInfo.UserName %> </a></li>
+           <li class="nav-item"><a class="nav-link" runat="server" href="~/LogOut_Page.aspx">Log Out</a></li>
+    </ul>
+      <%}
+    else
+    {  %>
+       <ul class="nav navbar-nav navbar-right">
+           <li class="nav-item"><a class="nav-link" runat="server" href="~/User_Registration.aspx">Register</a></li>
+           <li class="nav-item"><a class="nav-link" runat="server" href="~/LogIn_Page.aspx">Log in</a></li>
+    </ul>
+      <% } %>
+      
+  </div>
+</nav>
+
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - Ashiqur Rahman MIS(H5020, Spring-2021) Project.</p>
+            </footer>
+        </div>
+    </form>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js" integrity="sha512-vhvVqvC9Q8uUrq9PqvULhS+jX7ljOAzGRM0AMDqEPZmk4yG8tloWebj2TfJ8fYw0EzBNXU5kZ695eJqT0qo03w==" crossorigin="anonymous"></script>
+<script>        
+    $(function () {
+        $(".mypicker").datepicker({
+
+            format: "mm-dd-yyyy",
+            autoclose: true,
+            todayHighlight: true,
+            orientation: "auto",
+            startDate: '-0d'
+        });
+
+    });
+</script>
+
+</html>

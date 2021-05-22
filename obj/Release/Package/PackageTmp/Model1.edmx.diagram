@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="697a2875cd5a450eba3ae0a6f9a1e901" Name="Diagram1" ZoomLevel="59">
+        <EntityTypeShape EntityType="HotelModel.Bill" Width="1.875" PointX="14.375" PointY="5.5" />
+        <EntityTypeShape EntityType="HotelModel.Booking" Width="1.875" PointX="10.25" PointY="10.125" />
+        <EntityTypeShape EntityType="HotelModel.City" Width="1.875" PointX="2.75" PointY="6.25" />
+        <EntityTypeShape EntityType="HotelModel.Hotel" Width="1.875" PointX="5.875" PointY="9.25" />
+        <EntityTypeShape EntityType="HotelModel.Hotel_Image" Width="1.875" PointX="10.375" PointY="15.625" />
+        <EntityTypeShape EntityType="HotelModel.Hotel_Room" Width="1.875" PointX="9.5" PointY="6" />
+        <EntityTypeShape EntityType="HotelModel.Message" Width="1.875" PointX="8" PointY="17.75" />
+        <EntityTypeShape EntityType="HotelModel.RoomType" Width="1.875" PointX="6" PointY="4.5" />
+        <EntityTypeShape EntityType="HotelModel.sysdiagram" Width="1.875" PointX="6.5" PointY="0.5" />
+        <EntityTypeShape EntityType="HotelModel.User_Login" Width="1.875" PointX="3.375" PointY="14.25" />
+        <AssociationConnector Association="HotelModel.FK_Bill_Booking" />
+        <AssociationConnector Association="HotelModel.FK_Bill_Hotel" />
+        <AssociationConnector Association="HotelModel.FK_Bill_User_Login" />
+        <AssociationConnector Association="HotelModel.FK_Booking_Hotel" />
+        <AssociationConnector Association="HotelModel.FK_Booking_User_Login" />
+        <AssociationConnector Association="HotelModel.FK_Hotel_ToTable" />
+        <AssociationConnector Association="HotelModel.FK_Hotel_Image_Hotel" />
+        <AssociationConnector Association="HotelModel.FK_Hotel_Room_ToTable_1" />
+        <AssociationConnector Association="HotelModel.FK_Message_ToTable" />
+        <AssociationConnector Association="HotelModel.FK_Hotel_Room_ToTable" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
